@@ -10,7 +10,7 @@ const castleSchema = new Schema({
   rating: { type: Number, required: true },
   numReviews: { type: Number, required: true },
   description: { type: String, required: true },
-  owner: { type: String, required: true },
+  owner: { type: Schema.Types.ObjectId , required: true, ref:'User' },
   city: { type: String, required: true },
   country: { type: String, required: true },
   lon: { type: String, required: true },

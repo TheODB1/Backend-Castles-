@@ -4,7 +4,7 @@ import Castle from "../models/Castle.js";
 
 export const getAllCastles = async (req, res) => {
   try {
-    const castles = await Castle.find();
+    const castles = await Castle.find().populate('owner');
     res.json(castles);
   } catch (error) {
     res.status(500).json(error);
@@ -13,9 +13,10 @@ export const getAllCastles = async (req, res) => {
 
 export const createCastle = asyncHandler(async (req, res) => {
   const {
-    body    
+    body, 
+    user: {_id}
   } = req;
-  const newCastle = await Castle.create({ ...body });
+  const newCastle = await Castle.create({ ...body, owner: _id });
   res.status(201).json(newCastle);
 });
 
@@ -24,7 +25,7 @@ export const getSingleCastle = async (req, res) => {
   //   const {
   //   params: { id }
   // } = req;
-    const castle = await Castle.findById(req.params.id);
+    const castle = await Castle.findById(req.params.id).populate('owner');
     res.json(castle);
   } catch (error) {
     res.status(500).json(error);
