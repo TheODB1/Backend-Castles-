@@ -5,6 +5,7 @@ import "./db/client.js";
 import castleRouter from "./routes/castleRouter.js";
 import userRouter from "./routes/userRouter.js";
 import errorHandler from "./middlewares/errorHandler.js";
+import uploadsRouter from "./routes/uploadsRouter.js";
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -17,6 +18,8 @@ app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use("/api/castles", castleRouter);
 app.use("/auth", userRouter);
+app.use("/uploads", uploadsRouter);
+
 app.use(errorHandler);
 
 app.listen(port, () => console.log(`Serve at http://localhost:${port}`));
